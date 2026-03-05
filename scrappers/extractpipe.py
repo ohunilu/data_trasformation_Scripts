@@ -1,6 +1,6 @@
 import logging
 import pandas as pd
-from utils.data_utils import write_parquet_file
+from utils.data_utils import write_csv_file
 
 logger = logging.getLogger(__name__)
 
@@ -20,9 +20,9 @@ class ExportPipe:
     def close_spider(self, spider):
         if self.records:
             df = pd.DataFrame(self.records)
-            write_parquet_file(df, "extract_data.parquet")
+            write_csv_file(df, "extract_data.csv")
             logger.info(
-                "Saved %d records to output.parquet", len(self.records)
+                "Saved %d records to extract_data.csv", len(self.records)
             )
         else:
             logger.warning("No records were scraped.")

@@ -52,6 +52,30 @@ def write_parquet_file(
         return False
 
 
+def write_csv_file(
+    df: pd.DataFrame,
+    output_path: str,
+    index: bool = False
+) -> bool:
+
+    if df is None or df.empty:
+        print("No data to write (DataFrame is empty or None)")
+        return False
+
+    try:
+        print(f"Writing CSV: {output_path}")
+        df.to_csv(
+            output_path,
+            index=index
+        )
+        size_mb = os.path.getsize(output_path) / 1024 / 1024
+        print(f"Successfully saved → {size_mb:.1f} MB")
+        return True
+    except Exception as e:
+        print(f"Error writing CSV: {e}")
+        return False
+
+
 def write_avro_file(
     df: pd.DataFrame,
     output_path: str
